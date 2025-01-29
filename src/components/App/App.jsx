@@ -25,10 +25,14 @@ function App() {
       <h1>Fake Store</h1>
       <nav className={styles.storeNav}>
         <Link to="/">
-          <button type="button">Home</button>
+          <button className={styles.navButton} type="button">
+            Home
+          </button>
         </Link>
         <Link to="shop">
-          <button type="button">Shop</button>
+          <button type="button" className={styles.navButton}>
+            Shop
+          </button>
         </Link>
         <Link to="cart">
           <button type="button" className={styles.toggleCart}>

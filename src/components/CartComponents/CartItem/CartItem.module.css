@@ -1,0 +1,84 @@
+.cartItem {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+
+  border: 1px solid;
+  border-radius: 15px;
+
+  padding: 20px;
+}
+
+.cartItem > img {
+  min-width: 100px;
+  height: 100px;
+
+  border-radius: 8px;
+}
+
+.cartItemTitle {
+  font-weight: bold;
+  font-size: 0.85em;
+
+  max-width: 250px;
+
+  margin-bottom: 0px;
+}
+
+.removeCartItem {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+  cursor: pointer;
+
+  border-radius: 8px;
+  border: 1px solid transparent;
+
+  padding: 5px 30px;
+
+  font-size: 1.2em;
+  font-weight: 500;
+  font-family: inherit;
+
+  background-color: #bd1010;
+  color: #fff;
+
+  cursor: pointer;
+}
+
+.removeCartItem:hover {
+  background-color: #bd1010af;
+}
+
+.removeCartItem:focus,
+.removeCartItem:focus-visible {
+  outline: 4px auto -webkit-focus-ring-color;
+}
+
+@media only screen and (min-width: 950px) {
+  .cartItem {
+    flex-direction: row;
+  }
+
+  .cartItemInfo {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+
+    margin-left: 20px;
+  }
+
+  .cartItemTitle {
+    text-align: left;
+  }
+
+  .cartRemovalSection {
+    margin-left: 50px;
+  }
+
+  .removeCartItem {
+    padding: 5px 10px;
+    font-size: 0.8em;
+  }
+}

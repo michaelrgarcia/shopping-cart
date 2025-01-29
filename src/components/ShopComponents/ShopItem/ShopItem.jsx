@@ -6,8 +6,6 @@ import { useOutletContext } from "react-router-dom";
 import styles from "./ShopItem.module.css";
 
 const ShopItem = ({ shopItemObj }) => {
-  // needs an "onCartAdd" prop
-  // write actual tests......
   const [numberToAdd, setNumberToAdd] = useState(1);
 
   const { onCartAdd } = useOutletContext();

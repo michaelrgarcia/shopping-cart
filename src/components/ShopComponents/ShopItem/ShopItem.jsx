@@ -35,8 +35,10 @@ const ShopItem = ({ shopItemObj }) => {
   return (
     <div className={styles.shopItem}>
       <img src={shopItemObj.image} alt={shopItemObj.description} />
-      <p className={styles.shopItemTitle}>{shopItemObj.title}</p>
-      <p className={styles.shopItemPrice}>${shopItemObj.price.toFixed(2)}</p>
+      <div className={styles.shopItemInfo}>
+        <p className={styles.shopItemTitle}>{shopItemObj.title}</p>
+        <p className={styles.shopItemPrice}>${shopItemObj.price.toFixed(2)}</p>
+      </div>
       <div className={styles.userControls}>
         <div className={styles.itemCounter}>
           <button

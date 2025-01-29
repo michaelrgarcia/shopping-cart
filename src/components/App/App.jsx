@@ -31,10 +31,22 @@ function App() {
     }
   }
 
+  function onCartRemove(item) {
+    const cartItemIndex = cart.indexOf(item);
+
+    if (cartItemIndex !== -1) {
+      const cartCopy = [...cart];
+      cartCopy.splice(cartItemIndex, 1);
+
+      setCart(cartCopy);
+    }
+  }
+
   const shopContext = {
     shopItems,
     cart,
     onCartAdd,
+    onCartRemove,
   };
 
   return (

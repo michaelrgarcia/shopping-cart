@@ -6,6 +6,7 @@ import { useEffect, useState } from "react";
 
 function App() {
   const [shopItems, setShopItems] = useState([]);
+  const [cart, setCart] = useState([]);
 
   useEffect(() => {
     fetch("https://fakestoreapi.com/products")
@@ -14,10 +15,26 @@ function App() {
       .catch((err) => console.error(err));
   }, []);
 
-  const itemsInCart = 0; // will be state eventually
+  function onCartAdd(item) {
+    for (let i = 0; i < cart.length; i++) {
+      const currentCartItem = cart[i];
+
+      if (Number(currentCartItem.id) === Number(item.id)) {
+        const cartCopy = [...cart];
+
+        cartCopy[i].amount += item.amount;
+
+        setCart(cartCopy);
+      } else {
+        setCart([...cart, item]);
+      }
+    }
+  }
 
   const shopContext = {
     shopItems,
+    cart,
+    onCartAdd,
   };
 
   return (
@@ -39,8 +56,8 @@ function App() {
             <img
               src={CartIcon}
               className={styles.cartIcon}
-              alt={`Cart ${itemsInCart} items`}
-              title={`Cart ${itemsInCart} items`}
+              alt={`Cart ${cart.length} items`}
+              title={`Cart ${cart.length} items`}
             />
           </button>
         </Link>

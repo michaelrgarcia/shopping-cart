@@ -1,11 +1,38 @@
 import PropTypes from "prop-types";
 
-import styles from "./ShopItem.module.css";
 import { useState } from "react";
+import { useOutletContext } from "react-router-dom";
+
+import styles from "./ShopItem.module.css";
 
 const ShopItem = ({ shopItemObj }) => {
   // needs an "onCartAdd" prop
+  // write actual tests......
   const [numberToAdd, setNumberToAdd] = useState(1);
+
+  const { onCartAdd } = useOutletContext();
+
+  const { id, image, price, title } = shopItemObj;
+
+  const cartItemObj = {
+    id,
+    image,
+    price,
+    title,
+    amount: numberToAdd,
+  };
+
+  function incrementNumToAdd() {
+    if (numberToAdd !== 9) {
+      setNumberToAdd(numberToAdd + 1);
+    }
+  }
+
+  function decrementNumToAdd() {
+    if (numberToAdd !== 1) {
+      setNumberToAdd(numberToAdd - 1);
+    }
+  }
 
   return (
     <div className={styles.shopItem}>
@@ -14,7 +41,11 @@ const ShopItem = ({ shopItemObj }) => {
       <p className={styles.shopItemPrice}>${shopItemObj.price}</p>
       <div className={styles.userControls}>
         <div className={styles.itemCounter}>
-          <button type="button" className={styles.decrementCounter}>
+          <button
+            type="button"
+            onClick={decrementNumToAdd}
+            className={styles.decrementCounter}
+          >
             -
           </button>
           <input
@@ -23,12 +54,21 @@ const ShopItem = ({ shopItemObj }) => {
             max={9}
             name={`item-counter-${shopItemObj.id}`}
             value={numberToAdd}
+            onChange={(e) => setNumberToAdd(e.target.value)}
           />
-          <button type="button" className={styles.incrementCounter}>
+          <button
+            type="button"
+            onClick={incrementNumToAdd}
+            className={styles.incrementCounter}
+          >
             +
           </button>
         </div>
-        <button type="button" className={styles.addToCart}>
+        <button
+          type="button"
+          onClick={() => onCartAdd(cartItemObj)}
+          className={styles.addToCart}
+        >
           Add to cart
         </button>
       </div>

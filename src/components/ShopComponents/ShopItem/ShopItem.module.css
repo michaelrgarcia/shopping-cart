@@ -1,0 +1,63 @@
+.shopItem {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+
+  border: 1px solid;
+  border-radius: 15px;
+  padding: 40px;
+}
+
+.shopItem > img {
+  width: 150px;
+  height: 150px;
+}
+
+.shopItemTitle {
+  font-weight: bold;
+  text-align: left;
+
+  max-width: 150px;
+}
+
+.userControls {
+  display: flex;
+  align-items: center;
+}
+
+.itemCounter {
+  display: flex;
+
+  border: 1px solid;
+  border-radius: 5px;
+}
+
+.itemCounter * {
+  width: 35px;
+  height: 35px;
+
+  background-color: inherit;
+}
+
+.itemCounter > input {
+  background-color: inherit;
+
+  border: none;
+  text-align: center;
+}
+
+.itemCounter > button {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+  border-radius: 0;
+}
+
+.decrementCounter {
+  border-right: 1px solid;
+}
+
+.incrementCounter {
+  border-left: 1px solid;
+}

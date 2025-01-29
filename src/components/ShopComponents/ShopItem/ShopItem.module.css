@@ -9,8 +9,8 @@
 }
 
 .shopItem > img {
-  width: 150px;
-  height: 150px;
+  width: 200px;
+  height: 200px;
 }
 
 .shopItemTitle {
@@ -20,9 +20,15 @@
   max-width: 150px;
 }
 
+.shopItemPrice {
+  margin-top: -5px;
+  margin-bottom: 20px;
+}
+
 .userControls {
   display: flex;
-  align-items: center;
+
+  gap: 20px;
 }
 
 .itemCounter {
@@ -33,16 +39,23 @@
 }
 
 .itemCounter * {
-  width: 35px;
-  height: 35px;
-
   background-color: inherit;
+
+  min-width: 35px;
 }
 
 .itemCounter > input {
   background-color: inherit;
 
-  border: none;
+  font-family: inherit;
+
+  border-left: 1px solid;
+  border-right: 1px solid;
+  border-bottom: 0;
+  border-top: 0;
+
+  max-width: 35px;
+
   text-align: center;
 }
 
@@ -51,13 +64,56 @@
   justify-content: center;
   align-items: center;
 
-  border-radius: 0;
+  cursor: pointer;
 }
 
-.decrementCounter {
-  border-right: 1px solid;
-}
-
+.decrementCounter,
 .incrementCounter {
-  border-left: 1px solid;
+  border: none;
+  border-radius: 8px;
+
+  font-size: 1.5em;
+}
+
+.decrementCounter:hover,
+.incrementCounter:hover {
+  background-color: #57505042;
+}
+
+.addToCart {
+  border-radius: 8px;
+  border: 1px solid transparent;
+
+  padding: 0 15px;
+
+  font-size: 0.8em;
+  font-weight: 500;
+  font-family: inherit;
+
+  background-color: #646cff;
+  color: #fff;
+
+  cursor: pointer;
+
+  max-height: 35px;
+}
+
+.addToCart:hover {
+  background-color: #4e70cfcb;
+}
+
+.addToCart:focus,
+.addToCart:focus-visible {
+  outline: 4px auto -webkit-focus-ring-color;
+}
+
+@media (prefers-color-scheme: light) {
+  .addToCart {
+    background-color: #4e70cf;
+  }
+
+  .incrementCounter,
+  .decrementCounter {
+    background-color: #f9f9f9;
+  }
 }

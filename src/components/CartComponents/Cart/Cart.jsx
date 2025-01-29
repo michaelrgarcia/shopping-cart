@@ -20,6 +20,14 @@ function Cart() {
       <div className={styles.cartItems}>
         {cart.length > 0 ? renderedItems : "Your cart is empty."}
       </div>
+      {cart.length > 0 ? (
+        <p>
+          Enjoy looking at how much these things{" "}
+          <span className={styles.cartItalics}>would</span> cost you!
+        </p>
+      ) : (
+        ""
+      )}
     </main>
   );
 }

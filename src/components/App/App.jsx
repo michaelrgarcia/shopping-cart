@@ -2,9 +2,23 @@ import { Link, Outlet } from "react-router-dom";
 
 import CartIcon from "../../assets/shopping-cart.svg"; // from Lucide
 import styles from "./App.module.css";
+import { useEffect, useState } from "react";
 
 function App() {
+  const [shopItems, setShopItems] = useState([]);
+
+  useEffect(() => {
+    fetch("https://fakestoreapi.com/products")
+      .then((res) => res.json())
+      .then((json) => setShopItems(json))
+      .catch((err) => console.error(err));
+  }, []);
+
   const itemsInCart = 0; // will be state eventually
+
+  const shopContext = {
+    shopItems,
+  };
 
   return (
     <>
@@ -27,7 +41,7 @@ function App() {
           </button>
         </Link>
       </nav>
-      <Outlet />
+      <Outlet context={shopContext} />
     </>
   );
 }

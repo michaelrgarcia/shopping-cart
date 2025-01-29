@@ -1,11 +1,11 @@
 import { describe, it, expect } from "vitest";
 import { render, screen } from "@testing-library/react";
-import { MemoryRouter, Outlet, Route, Routes } from "react-router-dom";
 
 import userEvent from "@testing-library/user-event";
 
+import RenderRouteWithOutletContext from "../utils/RenderRouteWithOutletContext.jsx";
+
 import ShopItem from "../components/ShopComponents/ShopItem/ShopItem.jsx";
-import PropTypes from "prop-types";
 
 const sampleShopItem = {
   id: 1,
@@ -19,23 +19,6 @@ const sampleShopItem = {
     rate: 3.9,
     count: 120,
   },
-};
-
-const RenderRouteWithOutletContext = ({ context, children }) => {
-  return (
-    <MemoryRouter>
-      <Routes>
-        <Route path="/" element={<Outlet context={context} />}>
-          <Route index element={children} />
-        </Route>
-      </Routes>
-    </MemoryRouter>
-  );
-};
-
-RenderRouteWithOutletContext.propTypes = {
-  context: PropTypes.any,
-  children: PropTypes.any,
 };
 
 describe("item control functionality", () => {

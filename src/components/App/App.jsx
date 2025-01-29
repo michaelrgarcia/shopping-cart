@@ -4,7 +4,7 @@ import CartIcon from "../../assets/shopping-cart.svg"; // from Lucide
 import styles from "./App.module.css";
 import { useEffect, useState } from "react";
 
-function App() {
+const App = () => {
   const [shopItems, setShopItems] = useState([]);
   const [cart, setCart] = useState([]);
 
@@ -15,23 +15,21 @@ function App() {
       .catch((err) => console.error(err));
   }, []);
 
-  function onCartAdd(item) {
-    for (let i = 0; i < cart.length; i++) {
-      const currentCartItem = cart[i];
+  const onCartAdd = (item) => {
+    const dupeIndex = cart.findIndex((cartItem) => cartItem.id === item.id);
 
-      if (Number(currentCartItem.id) === Number(item.id)) {
-        const cartCopy = [...cart];
+    if (dupeIndex !== -1) {
+      const cartCopy = [...cart];
 
-        cartCopy[i].amount += item.amount;
+      cartCopy[dupeIndex].amount += item.amount;
 
-        setCart(cartCopy);
-      } else {
-        setCart([...cart, item]);
-      }
+      setCart(cartCopy);
+    } else {
+      setCart([...cart, item]);
     }
-  }
+  };
 
-  function onCartRemove(item) {
+  const onCartRemove = (item) => {
     const cartItemIndex = cart.indexOf(item);
 
     if (cartItemIndex !== -1) {
@@ -40,7 +38,7 @@ function App() {
 
       setCart(cartCopy);
     }
-  }
+  };
 
   const shopContext = {
     shopItems,
@@ -48,6 +46,11 @@ function App() {
     onCartAdd,
     onCartRemove,
   };
+
+  const itemsInCart = cart.reduce(
+    (accumulator, { amount }) => accumulator + amount,
+    0
+  );
 
   return (
     <>
@@ -68,8 +71,8 @@ function App() {
             <img
               src={CartIcon}
               className={styles.cartIcon}
-              alt={`Cart ${cart.length} items`}
-              title={`Cart ${cart.length} items`}
+              alt={`Cart ${itemsInCart} items`}
+              title={`Cart ${itemsInCart} items`}
             />
           </button>
         </Link>
@@ -77,6 +80,6 @@ function App() {
       <Outlet context={shopContext} />
     </>
   );
-}
+};
 
 export default App;

@@ -15,7 +15,9 @@ const CartItem = ({ cartItemObj }) => {
         <p className={styles.cartItemAmount}>Amount: {cartItemObj.amount}</p>
       </div>
       <div className={styles.cartRemovalSection}>
-        <p className={styles.cartItemPrice}>${cartItemObj.price}</p>
+        <p className={styles.cartItemPrice}>
+          ${(cartItemObj.price * cartItemObj.amount).toFixed(2)}
+        </p>
         <button
           type="button"
           onClick={() => onCartRemove(cartItemObj)}

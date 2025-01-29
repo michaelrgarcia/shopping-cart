@@ -1,9 +1,11 @@
 import PropTypes from "prop-types";
 
 import styles from "./ShopItem.module.css";
+import { useState } from "react";
 
 const ShopItem = ({ shopItemObj }) => {
   // needs an "onCartAdd" prop
+  const [numberToAdd, setNumberToAdd] = useState(1);
 
   return (
     <div className={styles.shopItem}>
@@ -20,6 +22,7 @@ const ShopItem = ({ shopItemObj }) => {
             min={1}
             max={9}
             name={`item-counter-${shopItemObj.id}`}
+            value={numberToAdd}
           />
           <button type="button" className={styles.incrementCounter}>
             +

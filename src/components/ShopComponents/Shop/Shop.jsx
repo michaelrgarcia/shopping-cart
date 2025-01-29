@@ -1,8 +1,9 @@
-// shopitem component key will be "id" in shopItem object
-
 import { useOutletContext } from "react-router-dom";
-import ShopItem from "../ShopItem/ShopItem";
 import { useMemo } from "react";
+
+import ShopItem from "../ShopItem/ShopItem.jsx";
+
+import styles from "./Shop.module.css";
 
 const Shop = () => {
   const { shopItems } = useOutletContext();
@@ -16,7 +17,7 @@ const Shop = () => {
   return (
     <main>
       <h2>Shop</h2>
-      <div className="shopItems">{renderedItems}</div>
+      <div className={styles.shopItems}>{renderedItems}</div>
     </main>
   );
 };

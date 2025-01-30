@@ -5,7 +5,7 @@ import CartItem from "../CartItem/CartItem.jsx";
 
 import styles from "./Cart.module.css";
 
-function Cart() {
+const Cart = () => {
   const { cart } = useOutletContext();
 
   const renderedItems = useMemo(() => {
@@ -30,6 +30,6 @@ function Cart() {
       )}
     </main>
   );
-}
+};
 
 export default Cart;

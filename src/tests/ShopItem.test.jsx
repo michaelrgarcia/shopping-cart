@@ -1,11 +1,12 @@
 import { describe, it, expect } from "vitest";
-import { render, screen } from "@testing-library/react";
+import { getDefaultNormalizer, render, screen } from "@testing-library/react";
 
 import userEvent from "@testing-library/user-event";
 
 import RenderRouteWithOutletContext from "../utils/RenderRouteWithOutletContext.jsx";
 
 import ShopItem from "../components/ShopComponents/ShopItem/ShopItem.jsx";
+import Cart from "../components/CartComponents/Cart/Cart.jsx";
 
 const sampleShopItem = {
   id: 1,
@@ -103,5 +104,160 @@ describe("item control functionality", () => {
     expect(screen.getByDisplayValue(1)).toBeVisible();
   });
 
-  // add to cart tests will be done after cart page is done
+  it("adds 1 item to the cart", async () => {
+    const user = userEvent.setup();
+
+    const mockContext = { cart: [] };
+
+    const onCartAdd = (item) => {
+      const { cart } = mockContext;
+
+      const dupeIndex = cart.findIndex((cartItem) => cartItem.id === item.id);
+
+      if (dupeIndex !== -1) {
+        const cartCopy = [...cart];
+
+        cartCopy[dupeIndex].amount += item.amount;
+
+        mockContext.cart = cartCopy;
+      } else {
+        mockContext.cart = [...cart, item];
+      }
+    };
+
+    mockContext.onCartAdd = onCartAdd;
+
+    render(
+      <RenderRouteWithOutletContext context={mockContext}>
+        <ShopItem shopItemObj={sampleShopItem} />
+      </RenderRouteWithOutletContext>
+    );
+
+    const addBtn = screen.getByRole("button", { name: "Add to cart" });
+
+    await user.click(addBtn);
+
+    render(
+      <RenderRouteWithOutletContext context={mockContext}>
+        <Cart />
+      </RenderRouteWithOutletContext>
+    );
+
+    expect(
+      screen.getByText("Amount: 1", {
+        normalizer: getDefaultNormalizer({ trim: false }),
+      })
+    ).toBeInTheDocument();
+  });
+
+  it("adds 3 items to the cart", async () => {
+    const user = userEvent.setup();
+
+    const mockContext = { cart: [] };
+
+    const onCartAdd = (item) => {
+      const { cart } = mockContext;
+
+      const dupeIndex = cart.findIndex((cartItem) => cartItem.id === item.id);
+
+      if (dupeIndex !== -1) {
+        const cartCopy = [...cart];
+
+        cartCopy[dupeIndex].amount += item.amount;
+
+        mockContext.cart = cartCopy;
+      } else {
+        mockContext.cart = [...cart, item];
+      }
+    };
+
+    mockContext.onCartAdd = onCartAdd;
+
+    render(
+      <RenderRouteWithOutletContext context={mockContext}>
+        <ShopItem shopItemObj={sampleShopItem} />
+      </RenderRouteWithOutletContext>
+    );
+
+    const incrementBtn = screen.getByRole("button", { name: "+" });
+    const addBtn = screen.getByRole("button", { name: "Add to cart" });
+
+    await user.dblClick(incrementBtn);
+
+    expect(screen.getByDisplayValue(3)).toBeVisible();
+
+    await user.click(addBtn);
+
+    render(
+      <RenderRouteWithOutletContext context={mockContext}>
+        <Cart />
+      </RenderRouteWithOutletContext>
+    );
+
+    expect(
+      screen.getByText("Amount: 3", {
+        normalizer: getDefaultNormalizer({ trim: false }),
+      })
+    ).toBeInTheDocument();
+  });
+
+  it("adds amount to an existing item", async () => {
+    const user = userEvent.setup();
+
+    const mockContext = { cart: [] };
+
+    const onCartAdd = (item) => {
+      const { cart } = mockContext;
+
+      const dupeIndex = cart.findIndex((cartItem) => cartItem.id === item.id);
+
+      if (dupeIndex !== -1) {
+        const cartCopy = [...cart];
+
+        cartCopy[dupeIndex].amount += item.amount;
+
+        mockContext.cart = cartCopy;
+      } else {
+        mockContext.cart = [...cart, item];
+      }
+    };
+
+    mockContext.onCartAdd = onCartAdd;
+
+    render(
+      <RenderRouteWithOutletContext context={mockContext}>
+        <ShopItem shopItemObj={sampleShopItem} />
+      </RenderRouteWithOutletContext>
+    );
+
+    const addBtn = screen.getByRole("button", { name: "Add to cart" });
+
+    await user.click(addBtn);
+
+    const { rerender } = render(
+      <RenderRouteWithOutletContext context={mockContext}>
+        <Cart />
+      </RenderRouteWithOutletContext>
+    );
+
+    expect(
+      screen.getByText("Amount: 1", {
+        normalizer: getDefaultNormalizer({ trim: false }),
+      })
+    ).toBeInTheDocument();
+
+    await user.click(addBtn);
+
+    rerender(
+      <RenderRouteWithOutletContext context={mockContext}>
+        <Cart />
+      </RenderRouteWithOutletContext>
+    );
+
+    expect(
+      screen.getByText("Amount: 2", {
+        normalizer: getDefaultNormalizer({ trim: false }),
+      })
+    ).toBeInTheDocument();
+  });
 });

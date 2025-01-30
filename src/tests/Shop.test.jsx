@@ -67,7 +67,7 @@ describe("handles fake store api data", () => {
       ).toBeInTheDocument();
 
       expect(
-        screen.getByText("$" + price, {
+        screen.getByText("$" + price.toFixed(2), {
           normalizer: getDefaultNormalizer({ trim: false }),
         })
       ).toBeInTheDocument();
